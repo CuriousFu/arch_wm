@@ -1,0 +1,325 @@
+
+
+#设置基本的工作区和热键(win)
+set $mod Mod4
+
+# Colors
+# Dark Color
+set $color1 #1D2021
+
+# Darker Red
+set $color2 #6C455A
+
+# Lighter Red
+set $color3 #9E4C55
+
+set $pink #F92672
+set $green #A6E22E
+set $dark_green #77A915
+set $darker_green #4D6917
+set $cyan #23ceef
+set $dark_cyan #010010e6
+set $black #000000
+# colorclass            border background    text        indicator
+client.focused          $black $cyan        $dark_cyan $pink 
+client.unfocused        $black $dark_cyan $dark_cyan $pink
+client.focused_inactive $black $dark_cyan $dark_cyan $pink
+client.urgent           $black $pink         $dark_cyan $pink
+client.background $black
+set $WS1  1: 
+set $WS2  2: 
+set $WS3  3:
+set $WS4  4: 
+set $WS5  5: 
+set $WS6  6: 
+set $WS7  7: 
+set $WS8  8: 
+set $WS9  9: 
+#set $WS0  10: 
+
+#背景和文字
+#exec_always --no-startup-id feh --bg-scale "/usr/share/backgrounds/xfce/archlinux-31.jpg"
+exec --no-startup-id ~/.config/i3/wallpaper.sh
+#exec --no-startup-id sh ~/.config/i3/wallpaper.sh
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+#font pango:monospace 8
+font pango:Comic Sans MS 10
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+#######一些常见绑定
+bindsym Print exec shutter -s -o ~/Pictures/shot/%Y-%m-%d-%T.png 
+bindsym --release Print exec scrot $HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).jpg                             
+bindsym --release Shift+Print exec scrot -s $HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).jpg)
+
+
+# start a terminal
+bindsym $mod+Return exec terminator 
+#bindsym $mod+Return exec urxvt -bg grey17 -fg grey67 -fn "xft:Mono Space:pixelsize=16" +sb -depth 32 -pr white -uc -bc -sl 100000
+# kill focused window
+bindsym $mod+Shift+q kill
+
+#打开thunar文件管理器
+bindsym $mod+t exec thunar
+#运行dmenu
+# start dmenu (a program launcher)
+#bindsym $mod+d exec dmenu_run
+
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
+#bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -opacity "80" -width 100 -padding 400 -bw 0 -bc "$bg-color" -font "Cantarell 15" -hlbg "$bg-color" -bg "$bg-color" -fg "$text-color"  -hlfg "#9575cd"
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+#切换到水平模式
+# split in horizontal orientation
+bindsym $mod+h split h
+
+#切换到垂直模式
+# split in vertical orientation
+bindsym $mod+v split v
+
+#全屏
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+#三种模式的切换
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+#切换到floating模式
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+#聚焦于浮动模式下的窗口
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+#聚焦与父布局
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#indsym $mod+d focus child
+
+#重载文件
+bindsym $mod+Shift+c reload
+
+#重启i3
+bindsym $mod+Shift+r restart
+
+#退出i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+#隐藏窗口
+bindsym $mod+Shift+minus move scratchpad
+
+#显示被隐藏的窗口
+bindsym $mod+minus scratchpad show
+
+######一些软件设置
+#开机自起compton
+exec --no-startup-id compton -b
+# 设置透明须先安装xcompmgr，并在此指定软件和透明度（默认0.75），sleep保证transset在其所设置的软件之后启动，根据情况调节大小
+exec --no-startup-id xcompmgr &
+exec --no-startup-id sleep .2 && exec transset -n i3bar 0.55
+exec --no-startup-id compton --config ~/.config/i3/compton.conf -b
+#开机自起fcitx
+exec_always --no-startup-id fcitx
+#exec_always --no-startup-id wicd
+
+#****************************************工作区操作**********************************************
+# switch to workspace
+#****************************************工作区操作**********************************************
+
+
+bindsym $mod+1 workspace $WS1, exec --no-startup-id ~/bin/st terminator
+bindsym $mod+2 workspace $WS2, exec --no-startup-id ~/bin/st firefox
+bindsym $mod+3 workspace $WS3, exec --no-startup-id WizNote > /dev/null 2>&1
+bindsym $mod+4 workspace $WS4, exec --no-startup-id ~/bin/st mpv
+bindsym $mod+5 workspace $WS5, exec --no-startup-id ~/bin/st thunar
+bindsym $mod+6 workspace $WS6, exec --no-startup-id ~/bin/st virtualbox
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+bindsym $mod+9 workspace $WS9
+bindsym $mod+0 workspace $WS0
+
+bindsym $mod+shift+1 move container to workspace $WS1, workspace $WS1
+bindsym $mod+shift+2 move container to workspace $WS2, workspace $WS2
+bindsym $mod+shift+3 move container to workspace $WS3, workspace $WS3
+bindsym $mod+shift+4 move container to workspace $WS4, workspace $WS4
+bindsym $mod+shift+5 move container to workspace $WS5, workspace $WS5
+bindsym $mod+shift+6 move container to workspace $WS6, workspace $WS6
+bindsym $mod+shift+7 move container to workspace $WS7, workspace $WS7
+bindsym $mod+shift+8 move container to workspace $WS8, workspace $WS8
+bindsym $mod+shift+9 move container to workspace $WS9, workspace $WS9
+bindsym $mod+shift+0 move container to workspace $WS0, workspace $WS0
+
+#打开软件时自动移至相应工作区
+assign [class="URxvt|xfce4-terminal"] $WS1
+assign [class="Firefox"] $WS2
+assign [class="Thunar|Ranger"] $WS3
+#assign [class="Shutter"] $WS3
+assign [class="Gvim|^Subl"] $WS4
+assign [class="Lantern"] $WS5
+assign [class="^Mplayer|^mpv"] $WS6
+#assign [class="DeaDBeef"] $WS7
+
+#********************************************更改窗口尺寸**************************************
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+
+#**************************************************主题设置*********************************************
+# 窗口颜色                边框    背景    文字    提示
+#client.focused          #333333 #333333 #FFFFFF #333333
+#client.focused_inactive #999999 #999999 #FFFFFF #3399FF
+#client.unfocused        #999999 #999999 #FFFFFF #3399FF
+#client.urgent           #990000 #990000 #FFFFFF #990000
+#client.placeholder      #000000 #000000 #FFFFFF #000000
+#client.background       #FFFFFF
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    font pango:Comic Sans MS 10
+#    status_command i3blocks 
+ status_command ~/.config/i3/jconky -t
+ #status_command sudo i3status -t
+    position bottom
+    # 是否隐藏
+    #mode hide
+    # 拆解工作区名（隐藏前面的1:2:3:……）
+    strip_workspace_numbers yes
+    # 定义分隔符∥
+    separator_symbol "    "
+
+    colors {
+        #Sets the color of the bar background
+#        background $color1
+
+        #Sets the color of the bar text
+        statusline $color3
+
+        #Sets colors for the workspace buttons
+        focused_workspace $color3 $color3 $color1
+        inactive_workspace $color1 $color1 $color3
+
+
+        #background #10101000
+        #statusline #FFFFFF
+        separator  #3399FF
+        # 工作区颜色         边框    背景    文字
+        #focused_workspace  #3297FD #11111100 #FFFFFF
+        #active_workspace   #FFFFFF #FFFFFF00 #FFFFFF
+        #inactive_workspace #111111 #11111100 #FFFFFF
+        #urgent_workspace   #990000 #11111100 #FFFFFF
+        #binding_mode       #990000 #99000000 #FFFFFF
+        }
+
+}
+#********************************************i3-gaps*********************************
+for_window [class="^.*"] border pixel 0
+#gaps inner 4
+#gaps outer 3
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0    gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+

@@ -1,0 +1,7 @@
+IP_ADDRESS=$(ip route get 1 | awk '{print $NF;exit}')
+
+if [[ "${IP_ADDRESS}" != "" ]]; then
+  echo "${IP_ADDRESS}"
+  echo "${IP_ADDRESS}"
+  echo ""
+fi

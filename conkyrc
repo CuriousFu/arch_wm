@@ -1,0 +1,36 @@
+out_to_x no
+out_to_console yes
+background no
+double_buffer no
+update_interval 1
+total_run_times 0
+override_utf8_locale no
+short_units yes
+if_up_strictness address
+cpu_avg_samples 2
+TEXT
+[
+#{ "full_text" : "", "color": "\#BADA55"},
+#{ "full_text": " ${exec curl icanhazip.com}"},
+#{ "full_text" : ${if_up eth0}"  ${upspeed eth0}/s  ${downspeed eth0}/s"${else}""${endif}, "color" : "\#94F397" },
+#{ "full_text" : ${if_up wlo1}"  ${upspeed wlp3s0}/s  ${downspeed wlp3s0}/s"${else}""${endif}, "color" : "\#94F397" },
+${if_up eth0}{ "full_text" : " ${addr eth0} \u2193${downspeedf eth0}k \u2191${upspeedf eth0}k", "color" : "\#a6a6a6"},
+  ${else}
+  ${if_up wlp3s0}{ "full_text" : " \u2193${downspeedf wlp3s0}k \u2191${upspeedf wlp3s0}k", "color" : "\#a6a6a6"},  
+  ${else}
+  {"full_text": "no connection","color":"\#E59847"},\
+${endif}
+#{ "full_text" : " ${cpu cpu0}%" , "color" : "\#8BC3E7" },
+#{ "full_text" : " $(exec checkupdates | cut -d " " -f1 | wc -l)" , "color" : "\#8BC3E7" },
+{ "full_text" : " ${mem}" , "color" : "\#B987D9" },
+{ "full_text" : " ${fs_used_perc /}%" , "color" : "\#FF9D17" },
+#Shows current CPU usage with a bar
+{"full_text": "  ${cpu cpu1}%" , "color":"\#8BC3E7"},
+  {"full_text": " ${exec sensors | grep -m 1 "Core 0"|awk '{print $3}'} ", "color":"\#FFFFFF"},
+#{ "full_text" : " ${battery_percent}%" , "color" : "\#A4DC6A" },
+{ "full_text" : " ${time %Y/%m/%d %a}" , "color" : "\#ff797b" },
+{ "full_text" : " ${time %H:%M}" , "color" : "\#8BADF9" }
+#{ "full_text" : " ${time %H:%M}" , "color" : "\#8BADF9" }
+],
+
+
