@@ -105,9 +105,10 @@ bindsym $mod+t exec thunar
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
-#bindsym $mod+space exec rofi -show run
+bindsym $mod+Shift+d exec rofi -show run
 bindsym $mod+g exec $term -e ranger
-#bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -opacity "80" -width 100 -padding 400 -bw 0 -bc "$bg-color" -font "Cantarell 15" -hlbg "$bg-color" -bg "$bg-color" -fg "$text-color"  -hlfg "#9575cd"
+#bindsym $mod+z exec rofi -show run -lines 3 -eh 2 -opacity "80" -width 100 -padding 400 -bw 0 -bc "$bg-color" -font "monospace 15" -hlbg "$bg-color" -bg "$bg-color" -fg "$text-color"  -hlfg "#9575cd"
+#bindsym $mod+z exec rofi -show run -lines 3 -eh 2 -opacity "80" -width 100 -padding 400 -bw 0 -bc "$bg-color" -font "Cantarell 15" -hlbg "$bg-color" -bg "$bg-color" -fg "$text-color"  -hlfg "#9575cd"
 
 # volume
 bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 1%+ && pkill -RTMIN+1 i3blocks
@@ -185,7 +186,8 @@ bindsym $mod+Shift+r restart
 #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # => 电源管理（Pause Break键呼出)
-set $mode_system 系统:锁屏(L) 注销(O) 关机(S) 重启(R) 取消(Esc)
+set $mode_system :(L) :(O) :(S) :(R) :(Esc)
+#set $mode_system 系统:锁屏(L) 注销(O) 关机(S) 重启(R) 取消(Esc)
 bindsym $mod+Shift+e mode "$mode_system"
 #bindsym Pause mode "$mode_system"
 mode "$mode_system" {
@@ -220,13 +222,19 @@ exec_always --no-startup-id fcitx
 #****************************************工作区操作**********************************************
 
 # => 自定义窗口（支持定义边框类型，窗口布局，大小调整，自动归类工作区等等，多个定义用,隔开）
+#for_window [class="(?i)thunar"] move container to workspace $WS3, workspace $WS3
+#for_window [class="(?i)thunar"] floating enable,border none,floating_maximum_size 60 x 40 
 for_window [class="(?i)thunar"] move container to workspace $WS3, workspace $WS3, layout tabbed
 for_window [class="(?i)gvim|sublime*"] workspace $WS4
 for_window [class="(?i)wps*"] workspace $WS0
-#for_window [class="(?i)firefox*"] 
+#for_window [class="(?i)firefox*"] floating enable 
+for_window [class="(?i)deadbeef*"]  shrink width  50 px or 50ppt,shrink height 20 px or 20ppt
 for_window [class="(?i)mpv*"] workspace $WS5
-for_window [class="(?i)feh*"] layout tabbed
+#for_window [class="(?i)feh*"] layout tabbed
 #for_window [class="(?i)sublime*"] workspace $WS4
+for_window [class="(?i)viewnior|(?i)feh|(?i)mplayer|(?i)mpv|(?i)steam|(?i)gsimplecal|(?i)gtk-gnash|(?i)qjackctl"] floating enable
+  # Force floating mode for dialogs
+for_window [window_role="pop-up|task_dialog"] floating enable
 #****************************************工作区操作**********************************************
 
 # switch to workspace
@@ -308,51 +316,52 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-    #font pango:Comic Sans MS 9
-    font pango:Roboto bold 9, noto-fonts-emoji 9
-    #font pango:Comic Sans MS 9, noto-fonts-emoji 8
-    #font pango:Comic Sans MS 9, EmojiOne Color 9
-    status_command i3blocks 
-   # i3bar_command i3bar -t
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh &
+#bar {
+#    #font pango:Comic Sans MS 9
+#    font pango:Roboto bold 9, noto-fonts-emoji 9
+#    #font pango:Comic Sans MS 9, noto-fonts-emoji 8
+#    #font pango:Comic Sans MS 9, EmojiOne Color 9
+#    #status_command i3blocks 
+#   # i3bar_command i3bar -t
 #    status_command py3status
-# status_command ~/.config/i3/jconky
- #status_command  sudo i3status -t
-   
-   position bottom
-    # 是否隐藏
-    #mode hide
-    # 拆解工作区名（隐藏前面的1:2:3:……）
-    strip_workspace_numbers yes
-    # 定义分隔符∥
-   # separator_symbol "  "
-    separator_symbol "✦"
-    #separator_symbol "    "
-
-    colors {
-        #Sets the color of the bar background
-        background $color1
-
-        #Sets the color of the bar text
-        statusline $color3
-
-        #Sets colors for the workspace buttons
-        # 工作区颜色         边框    背景    文字
-        focused_workspace $color3 $color3 $color1
-        inactive_workspace $color1 $color1 $color3
-
-
-        separator  #3399FF
-        # 工作区颜色         边框    背景    文字
-        #focused_workspace  #3297FD #11111100 #FFFFFF
-#        active_workspace   #FFFFFF #FFFFFF00 #FFFFFF
-        #inactive_workspace #111111 #11111100 #FFFFFF
-#        urgent_workspace   $color3 #11111100 #FFFFFF
-        #urgent_workspace   #990000 #11111100 #FFFFFF
-      #  binding_mode       #990000 #99000000 #FFFFFF
-        }
-
-}
+## status_command ~/.config/i3/jconky
+# #status_command  sudo i3status -t
+#   
+#   position bottom
+#    # 是否隐藏
+#    #mode hide
+#    # 拆解工作区名（隐藏前面的1:2:3:……）
+#    strip_workspace_numbers yes
+#    # 定义分隔符∥
+#   # separator_symbol "  "
+#    separator_symbol "✦"
+#    #separator_symbol "    "
+#
+#    colors {
+#        #Sets the color of the bar background
+#        background $color1
+#
+#        #Sets the color of the bar text
+#        statusline $color3
+#
+#        #Sets colors for the workspace buttons
+#        # 工作区颜色         边框    背景    文字
+#        focused_workspace $color3 $color3 $color1
+#        inactive_workspace $color1 $color1 $color3
+#
+#
+#        separator  #3399FF
+#        # 工作区颜色         边框    背景    文字
+#        #focused_workspace  #3297FD #11111100 #FFFFFF
+##        active_workspace   #FFFFFF #FFFFFF00 #FFFFFF
+#        #inactive_workspace #111111 #11111100 #FFFFFF
+##        urgent_workspace   $color3 #11111100 #FFFFFF
+#        #urgent_workspace   #990000 #11111100 #FFFFFF
+#      #  binding_mode       #990000 #99000000 #FFFFFF
+#        }
+#
+#}
 #********************************************i3-gaps*********************************
 for_window [class="^.*"] border pixel 0
 #gaps inner 2

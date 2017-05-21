@@ -76,7 +76,12 @@ class Py3status:
     icon_default = u'?'
     icon_rain = u''
     icon_snow = u''
-    icon_sun = u''
+    icon_sun = u'🌞'
+    #icon_cloud = u''
+    #icon_default = u'?'
+    #icon_rain = u''
+    #icon_snow = u''
+    #icon_sun = u''
     request_timeout = 10
     units = 'c'
     woeid = None
