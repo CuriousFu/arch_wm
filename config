@@ -24,6 +24,7 @@ set $black #000000
 
 set $beige       #ebdbb2
 set $darkgray    #1d2021
+set $lightgray   #fe9e9e
 set $gray        #9e9e9e
 set $lightgray   #282828
 set $lightergray #32302f
@@ -32,7 +33,7 @@ set $darkred     #B71C1C
 set $green       #2E7D32
 set $darkgreen   #1B5E20
 # colorclass            border background    text        indicator
-client.focused          $black $beige $pink       $pink 
+client.focused          $black $lightgray $pink       $pink 
 client.unfocused        $black $dark_cyan $grayorange $pink
 client.focused_inactive $black $dark_cyan $dark_cyan $pink
 client.urgent           $black $pink         $dark_cyan $pink
@@ -222,7 +223,7 @@ exec_always --no-startup-id wicd
 #****************************************工作区操作**********************************************
 
 # => 自定义窗口（支持定义边框类型，窗口布局，大小调整，自动归类工作区等等，多个定义用,隔开）
-for_window [class="(?i)thunar"] move container to workspace $WS3, workspace $WS3,layout enable
+for_window [class="(?i)thunar"] move container to workspace $WS3, workspace $WS3,layout tabbed
 #for_window [class="(?i)thunar"] floating enable,border none,floating_maximum_size 60 x 40 
 #for_window [class="(?i)thunar"] move container to workspace $WS3, workspace $WS3, layout tabbed
 for_window [class="(?i)gvim|sublime*|atom"] workspace $WS4
