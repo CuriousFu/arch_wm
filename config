@@ -61,6 +61,7 @@ set $WS0  10:
 #背景和文字
 #exec_always --no-startup-id feh --bg-scale "/usr/share/backgrounds/xfce/archlinux-31.jpg"
 exec --no-startup-id ~/.config/i3/wallpaper.sh
+exec --no-startup-id ~/.config/i3/pkg.sh
 #exec --no-startup-id sh ~/.config/i3/wallpaper.sh
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -230,9 +231,12 @@ for_window [class="(?i)gvim|sublime*|atom"] workspace $WS4
 for_window [class="(?i)wps*|epdfview"] workspace $WS0
 #for_window [class="(?i)deadbeef*"] floating enable 
 #for_window [class="(?i)deadbeef*"]  shrink width  50 px or 50ppt,shrink height 20 px or 20ppt
+#for_window [class="(?i)uget*"]  shrink width  50 px or 50ppt,shrink height 20 px or 20ppt
 for_window [class="(?i)mpv*"] workspace $WS5
 #for_window [class="(?i)feh*"] layout tabbed
 #for_window [class="(?i)sublime*"] workspace $WS4
+#for_window [class="(?i)uget*"] floating enable
+for_window [class="(?i)virtual*"] floating enable
 for_window [class="(?i)xfce4-terminal*"] floating enable
 for_window [class="(?i)file-roller*"] floating enable
 for_window [class="(?i)gpicview*"] floating enable
